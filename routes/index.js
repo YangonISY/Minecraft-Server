@@ -2,9 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth')
 
-// Index page
 router.get('/', (req, res) => {
-    res.render('index');
+    if (req.user) {
+        res.redirect('/dashboard');
+    } else {
+        res.redirect('/login-or-register');
+    }
+});
+
+// Index page
+router.get('/login-or-register', (req, res) => {
+    res.render('login-or-register');
 });
 
 // Dashboard
